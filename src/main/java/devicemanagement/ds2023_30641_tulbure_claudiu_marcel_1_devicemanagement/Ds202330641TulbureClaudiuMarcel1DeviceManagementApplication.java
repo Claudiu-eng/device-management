@@ -2,6 +2,7 @@ package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 @SpringBootApplication
 public class Ds202330641TulbureClaudiuMarcel1DeviceManagementApplication {

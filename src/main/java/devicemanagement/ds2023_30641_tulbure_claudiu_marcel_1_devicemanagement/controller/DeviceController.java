@@ -1,5 +1,6 @@
 package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.controller;
 
+import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.DeviceNotFoundException;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.DeviceDTOForAdmin;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.DeviceDTOForUser;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.MappingUserToDevicesDTO;
@@ -23,15 +24,11 @@ public class DeviceController {
         return ResponseEntity.ok(deviceService.getAllDevices());
     }
 
-    @PostMapping("/mapping-user-to-devices")
-    public ResponseEntity manageUserDevicesRelationship(@RequestBody MappingUserToDevicesDTO mappingUserToDevicesDTO){
-        try {
-            deviceService.manageUserDevicesRelationship(mappingUserToDevicesDTO);
-            return ResponseEntity.ok().build();
-        }catch (Exception exception){
-            return ResponseEntity.badRequest().build();
-        }
+    @GetMapping("/all-devices-for-user/{id}")
+    public ResponseEntity<List<DeviceDTOForUser>> getAllDevicesByUserId(@PathVariable UUID id){
+        return ResponseEntity.ok(deviceService.getAllDevicesByUserId(id));
     }
+
 
     @PostMapping("")
     public ResponseEntity insertDevice(@RequestBody DeviceDTOForUser deviceDTOForUser){
@@ -40,13 +37,13 @@ public class DeviceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteDevice(@PathVariable UUID id){
+    public ResponseEntity deleteDevice(@PathVariable UUID id) throws DeviceNotFoundException {
         deviceService.deleteDevice(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateDevice(@RequestBody DeviceDTOForUser deviceDTOForUser,@PathVariable UUID id){
+    public ResponseEntity updateDevice(@RequestBody DeviceDTOForUser deviceDTOForUser,@PathVariable UUID id) throws DeviceNotFoundException {
         deviceService.updateDevice(deviceDTOForUser,id);
         return ResponseEntity.ok().build();
     }

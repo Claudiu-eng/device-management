@@ -20,6 +20,7 @@ public class DeviceDTOForAdmin {
     private String address;
     @NonNull
     private Integer maximHourlyEnergy;
+    private UUID userId;
 
 }
 
