@@ -1,23 +1,24 @@
 package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto;
 
+
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
-public class DeviceDTOForUser {
+public class DeviceDTOForMonitoring implements Serializable {
 
     @NonNull
-    private String description;
+    private String token;
     @NonNull
-    private String address;
+    private String operation;
+    @NonNull
+    private UUID uuid;
     @NonNull
     private Integer maximHourlyEnergy;
-    private UUID userId;
-    private UUID id;
-
 }

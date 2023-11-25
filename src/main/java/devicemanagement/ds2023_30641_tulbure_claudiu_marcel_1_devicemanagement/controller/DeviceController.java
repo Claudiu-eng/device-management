@@ -1,6 +1,8 @@
 package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.DeviceNotFoundException;
+import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.UserNotFoundException;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.DeviceDTOForAdmin;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.DeviceDTOForUser;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.MappingUserToDevicesDTO;
@@ -31,19 +33,19 @@ public class DeviceController {
 
 
     @PostMapping("")
-    public ResponseEntity insertDevice(@RequestBody DeviceDTOForUser deviceDTOForUser){
+    public ResponseEntity insertDevice(@RequestBody DeviceDTOForUser deviceDTOForUser) throws UserNotFoundException, JsonProcessingException {
         deviceService.insertDevice(deviceDTOForUser);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteDevice(@PathVariable UUID id) throws DeviceNotFoundException {
+    public ResponseEntity deleteDevice(@PathVariable UUID id) throws DeviceNotFoundException, JsonProcessingException {
         deviceService.deleteDevice(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateDevice(@RequestBody DeviceDTOForUser deviceDTOForUser,@PathVariable UUID id) throws DeviceNotFoundException {
+    public ResponseEntity updateDevice(@RequestBody DeviceDTOForUser deviceDTOForUser,@PathVariable UUID id) throws DeviceNotFoundException, UserNotFoundException {
         deviceService.updateDevice(deviceDTOForUser,id);
         return ResponseEntity.ok().build();
     }

@@ -1,10 +1,12 @@
 database:
   ip : ${DB_IP:localhost}
-  port : ${DB_PORT:3307}
+  port : ${DB_PORT:3306}
   user : ${DB_USER:root}
   password: ${DB_PASSWORD:12345678}
   name: ${DB_DBNAME:devicemanagement}
 
+allowed:
+  origins: ${ALLOWED_ORIGINS:http://localhost:4200}
 
 spring:
   datasource:
@@ -24,6 +26,21 @@ spring:
         format_sql: true
         dialect : org.hibernate.dialect.MySQLDialect
     database: mysql
+
+  rabbitmq:
+    host: kangaroo.rmq.cloudamqp.com
+    port: 5672
+    username: xkjjwrpn
+    password: V-a0wfApZv-T2uV4iqxap8_kialC_7_1
+    virtual-host: xkjjwrpn
+
+queue:
+  name: send-device-queue
+exchange:
+  name: send-device-exchange
+routing:
+  key: send-device-routingkey
+
 server:
   port: ${PORT:8090}
   tomcat:

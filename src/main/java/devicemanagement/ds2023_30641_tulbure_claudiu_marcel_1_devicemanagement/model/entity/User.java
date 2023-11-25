@@ -2,7 +2,6 @@ package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class User {
     @Id
     private UUID id;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private List<Device> deviceList;
 
     @PreRemove

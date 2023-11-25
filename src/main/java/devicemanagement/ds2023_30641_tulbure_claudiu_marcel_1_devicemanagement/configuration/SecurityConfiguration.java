@@ -2,6 +2,7 @@ package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +18,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthFilter;
+
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    @Value("${allowed.origins}")
+    private String allowedOrigins;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -56,10 +60,10 @@ public class SecurityConfiguration {
         final CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost");
-        config.addAllowedOriginPattern("*");
-        config.addAllowedHeader("*");
-        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        config.setAllowedOriginPatterns(List.of(allowedOrigins));
+        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
+        config.setExposedHeaders(Arrays.asList("Authorization","Accept","Content-Type","Origin","X-Auth-Token","X-Requested-With","Access-Control-Request-Method","Access-Control-Request-Headers"));
+        config.setAllowedHeaders(Arrays.asList("Authorization","Accept","Content-Type","Origin","X-Auth-Token","X-Requested-With","Access-Control-Request-Method","Access-Control-Request-Headers"));
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

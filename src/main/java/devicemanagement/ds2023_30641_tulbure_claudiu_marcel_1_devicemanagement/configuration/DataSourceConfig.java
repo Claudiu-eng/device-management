@@ -19,14 +19,19 @@ public class DataSourceConfig {
     private String databaseUrlFlyway;
     @Value("${database.port}")
     private String databasePortFlyway;
-
+    @Value("${database.user}")
+    private String user;
+    @Value("${database.password}")
+    private String password;
+    @Value("${database.name}")
+    private String databaseName;
 
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://" + databaseUrlFlyway+":"+ databasePortFlyway +"/devicemanagement");
-        config.setUsername("root");
-        config.setPassword("12345678");
+        config.setJdbcUrl("jdbc:mysql://" + databaseUrlFlyway+":"+ databasePortFlyway +"/"+databaseName);
+        config.setUsername(user);
+        config.setPassword(password);
         return new HikariDataSource(config);
     }
 

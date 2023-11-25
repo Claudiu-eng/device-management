@@ -2,20 +2,15 @@ package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.
 
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.UserNotFoundException;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.UserUUIDExistentException;
-import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.DeviceDTOForUser;
-import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.MappingUserToDevicesDTO;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.model.dto.UserDTO;
-import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.service.DeviceService;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin("localhost:4200")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -35,7 +30,6 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
 
 
 }

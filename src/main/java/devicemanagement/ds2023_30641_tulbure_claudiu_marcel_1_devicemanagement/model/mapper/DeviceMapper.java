@@ -15,6 +15,8 @@ public class DeviceMapper {
                 .address(device.getAddress())
                 .description(device.getDescription())
                 .maximHourlyEnergy(device.getMaximHourlyEnergy())
+                .userId(device.getUser().getId())
+                .id(device.getId())
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import devicemanagement.ds2023_30641_tulbure_claudiu_marcel_1_devicemanagement.exception.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -87,6 +88,28 @@ public class RestExceptionHandler
                 ex.getStatus().value(),
                 ex.getMessage(),
                 Collections.singleton(bodyOfResponse));
+        return handleExceptionInternal(
+                ex,
+                errorInformation,
+                new HttpHeaders(),
+                ex.getStatus(),
+                request
+        );
+    }
+
+    @ExceptionHandler(value
+            = { JsonProcessingException.class})
+    public ResponseEntity<Object> handleParseJSONException(
+            CustomException ex, WebRequest request) {
+
+        String bodyOfResponse = "Device parsing to json error ";
+        ExceptionHandlerResponseDTO errorInformation = new ExceptionHandlerResponseDTO(
+                ex.getStatus().getReasonPhrase(),
+                ex.getStatus().value(),
+                ex.getMessage(),
+                Collections.singleton(bodyOfResponse));
+
+        log.error(ex.getMessage());
         return handleExceptionInternal(
                 ex,
                 errorInformation,
